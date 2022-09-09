@@ -1,0 +1,3 @@
+i. Not many in order to keep it secret, while the encrypted volume & keyfiles can be widely distributed, the secrecy of it will degrade as more users are aware of it. Thus, limited distribution is required to keep the knowledge of the hidden volume relatively unknown.
+ii. Mainly text-based communication, I would think larger-volume files in the hidden volume would be too heavyweight, and not really optimal for that form of communication.
+iii.  I would make it more secure by adding a password in addition to using keyfiles, and carefully selecting the encryption algorithm used rather than just using the defaults.

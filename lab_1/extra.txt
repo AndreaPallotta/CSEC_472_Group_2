@@ -1,13 +1,14 @@
 Among the supported cipher cascades supported by VeraCrypt, AES-Twofish-Serpent is the most secure cascade.
 
-After filtering out the cascades with only two rounds of encryptions, we are left with:
+After filtering out the cascades with only two rounds of encryption, we are left with:
 
 1. AES-Twofish-Serpent
 2. Kuznyechik-Serpent-Camelia
 3. Serpent-Twofish-AES
 
-Serpent and Twofish are usually considered more secure than AES (Rijndael). However, since EAS is condired industry standard and experts have been trying to break it for a long it, we can filter out Kuznyechik-Serpent-Camelia.
+Serpent and Twofish are usually considered more secure than AES (Rijndael).
+However, since AES is considered industry-standard and experts have been trying to break it for a long it, we can filter out Kuznyechik-Serpent-Camelia.
 
-The order of ciphers must also be taken into consideration since it matters in specific practical scenarios. If the first cipher leaks information about the plaintext (password in this case), then the cascade is compromised. Therefore, Serpent, having a higher security margin than EAS, should be the first cipher to encrypt the plaintext.
+The order of ciphers must also be taken into consideration since it matters in specific practical scenarios. If the first cipher leaks information about the plaintext (password in this case), then the cascade is compromised. Therefore, Serpent, having a higher security margin than AES, should be the first cipher to encrypt the plaintext.
 
-In conclusion, EAS-Twofish-Serpent is the most secure cipher cascade supported by VeraCrypt.
+In conclusion, AES-Twofish-Serpent is the most secure cipher cascade supported by VeraCrypt.
