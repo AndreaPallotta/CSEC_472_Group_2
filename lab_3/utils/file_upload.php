@@ -1,4 +1,4 @@
 <?php
-  echo "If you see this means, this file has been executed";
+  echo "Hold up wait a minute something ain't right";
   $output = shell_exec('ls -la');
   echo "<pre>$output</pre>";
