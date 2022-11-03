@@ -16,7 +16,7 @@ document.querySelector('#login').addEventListener('click', (event) => {
         return;
     }
 
-    axios.post('http://localhost:3000/login', { username, password }, ).then((res) => {
+    axios.post('http://localhost:8080/login', { username, password }, ).then((res) => {
         console.log('res', res);
     }).catch((err) => {
         alert('err', err.message);
