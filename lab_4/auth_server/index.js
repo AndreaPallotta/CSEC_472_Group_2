@@ -19,7 +19,15 @@ app.post('/login', async (req, res) => {
     if (!username || !password) {
         return res.status(400).json(formatToken());
     }
-    res.status(200).send('ok');
+
+    axios.post('http://oauth-provider/token.php', 
+    { 'grant_type': ' client_credentials' }, 
+    {
+        auth: { username, password }
+    }).then(() => {})
+    .catch(() => {})
+
+    return res.status(400).json(formatToken());
 });
 
 app.listen(8080, () => {
