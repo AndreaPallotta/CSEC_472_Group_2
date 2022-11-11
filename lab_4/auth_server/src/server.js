@@ -30,6 +30,4 @@ app.post('/login', async (req, res) => {
     return res.status(400).json(formatToken());
 });
 
-app.listen(8080, () => {
-    console.log('Listening on port 8080');
-});
+module.exports = app;
