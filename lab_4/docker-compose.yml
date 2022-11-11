@@ -1,0 +1,31 @@
+version: '2'
+services:
+  client_service:
+    build: client
+    expose:
+      - "80"
+    restart: always
+    environment:
+      - "SERVICE_URL=http://client_service"
+  auth_server_service:
+    build: auth_server
+    expose:
+      - "80"
+    restart: always
+    environment:
+      - "SERVICE_URL=http://auth_server_service"
+  oauth_provider_service:
+    build: oauth_provider
+    expose:
+      - "80"
+    restart: always
+    environment:
+      - "SERVICE_URL=http://oauth_provider_service"
+  app_server_service:
+    build: app_server
+    expose:
+      - "80"
+    restart: always
+    environment:
+      - "SERVICE_URL=http://app_server_service"
+  

@@ -1,23 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Client</title>
-        <link rel="stylesheet" href="./style.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
-            integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    </head>
-    <body>
-        <h1>Authentication</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Client</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
+      integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <style>
+      h1 {
+        margin-left: 40%;
+        margin-top: 10%;
+        color: red;
+      }
 
-        <form id="form-container">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password">
-            <button id="login">Login</button>
-        </form>
-        <script src="./script.js"></script>
-    </body>
+      #form-container {
+        display: flex;
+        align-content: center;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 30%;
+        margin-left: 30%;
+      }
+
+      label {
+        margin-bottom: 0.5rem;
+      }
+
+      input {
+        margin-bottom: 1rem;
+        padding: 0.3rem;
+      }
+
+      #login {
+        margin: 1rem;
+        padding: 0.5rem;
+        background-color: lightblue;
+        border-radius: 20px;
+        font-size: medium;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Authentication</h1>
+
+    <form id="form-container">
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" />
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" />
+      <button id="login">Login</button>
+    </form>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        if (!axios) {
+          alert("Error loading axios. Refresh the page and try again")
+          return
+        }
+      })
+
+      document.querySelector("#login").addEventListener("click", (event) => {
+        event.preventDefault()
+        const formElements = document.querySelector("#form-container").elements
+        const username = formElements.username.value
+        const password = formElements.password.value
+
+        if (!username || !password) {
+          alert("Please enter a username and password")
+          return
+        }
+
+        axios
+          .post("http://localhost:8080/login", { username, password })
+          .then((res) => {
+            console.log("res", res)
+          })
+          .catch((err) => {
+            alert("err", err.message)
+          })
+      })
+    </script>
+  </body>
 </html>
