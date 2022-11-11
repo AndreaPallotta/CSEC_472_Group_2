@@ -2,12 +2,10 @@ version: '2'
 services:
   client_service:
     image: nginx
-    expose:
-      - "80"
+    ports:
+      - 8000:80
     volumes:
       - ./client:/usr/share/nginx/html
-    environment:
-      - "SERVICE_URL=http://client_service"
   auth_server_service:
     build: auth_server
     expose:
@@ -29,4 +27,3 @@ services:
     restart: always
     environment:
       - "SERVICE_URL=http://app_server_service"
-  
