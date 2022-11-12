@@ -9,11 +9,22 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
+      integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <style>
       h1 {
         margin-left: 40%;
         margin-top: 10%;
         color: red;
+      }
+
+      h3 {
+        margin-left: 40%;
+        margin-top: 3%;
       }
 
       #form-container {
@@ -53,34 +64,66 @@
       <input type="password" name="password" id="password" />
       <button id="login">Login</button>
     </form>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        if (!axios) {
-          alert("Error loading axios. Refresh the page and try again")
-          return
-        }
-      })
 
-      document.querySelector("#login").addEventListener("click", (event) => {
-        event.preventDefault()
-        const formElements = document.querySelector("#form-container").elements
-        const username = formElements.username.value
-        const password = formElements.password.value
+    <h3>Success Messages:</h3>
+    <p id="success-message"></p>
+
+    <h3>Error Messages:</h3>
+    <p id="error-message"></p>
+    <script>
+      const hash = (password) => CryptoJS.SHA256(password);
+
+      const decryptRes = (encrypted, password) => {
+        const hashedPassword = hash(password).toString();
+        return CryptoJS.AES.decrypt(encrypted, hashedPassword).toString(
+          CryptoJS.enc.Utf8
+        );
+      };
+
+      document.addEventListener('DOMContentLoaded', () => {
+        if (!axios || !CryptoJS) {
+          alert('Error loading axios. Refresh the page and try again');
+          return;
+        }
+      });
+
+      document.querySelector('#login').addEventListener('click', (event) => {
+        event.preventDefault();
+        const formElements = document.querySelector('#form-container').elements;
+        const username = formElements.username.value;
+        const password = formElements.password.value;
 
         if (!username || !password) {
-          alert("Please enter a username and password")
-          return
+          alert('Please enter a username and password');
+          return;
         }
 
         axios
-          .post("http://localhost:8080/login", { username, password })
-          .then((res) => {
-            console.log("res", res)
+          .post('http://localhost:8080/login', { username, password })
+          .then(({ data }) => {
+            const { auth, token } = JSON.parse(decryptRes(data, password));
+            if (auth !== 'success' || !token) {
+              throw new Error('authentication failed');
+            }
+            document.querySelector(
+              '#success-message'
+            ).innerHTML += `<br> - Successfully decrypted json response: ${JSON.stringify(
+              token
+            )}`;
+
+            axios
+              .post('http://localhost:8082/validateToken', { token })
+              .then(({ data }) => {
+                const tag = data.success ? 'success' : 'error';
+                document.querySelector(
+                  `#${tag}-message`
+                ).innerHTML += `<br> - ${data.msg}`;
+              });
           })
           .catch((err) => {
-            alert("err", err.message)
-          })
-      })
+            alert('err', err.message);
+          });
+      });
     </script>
   </body>
 </html>
